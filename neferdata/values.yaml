@@ -4,6 +4,9 @@
 nameOverride: ""
 fullnameOverride: ""
 
+cloud:
+  provider: "aws" # or "gcp", "azure", etc.
+
 actixApi:
   replicaCount: 1
   image:
