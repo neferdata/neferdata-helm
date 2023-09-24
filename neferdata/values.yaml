@@ -1,0 +1,294 @@
+# Default values for neferdata.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+
+actixApi:
+  replicaCount: 1
+  image:
+    repository: us-central1-docker.pkg.dev/cldshld/neferdata-api/neferdata-api
+    pullPolicy: Always
+    tag: b850d65a86f35b00fbc74ef5dfda60d0f835b08e
+  env:
+    - name: RUST_LOG
+      value: info
+    - name: ACTIX_PORT
+      value: "8080"
+    - name: OAUTH_REDIRECT_URL
+      value: https://api.neferdata.com/login/callback
+    - name: UI_URL
+      value: https://neferdata.com
+    - name: AUTHORIZE_URL
+      value: https://api.neferdata.com/login?action=Authorize
+    - name: MICROSOFT_AUTHORIZE_URL
+      value: https://api.neferdata.com/microsoft/login?action=Authorize
+    - name: AUTHORIZE_VENDOR_URL
+      value: https://api.neferdata.com/login?action=Authorize&vendor=true
+    - name: MICROSOFT_AUTHORIZE_VENDOR_URL
+      value: https://api.neferdata.com/microsoft/login?action=Authorize&vendor=true
+    - name: WHITELIST_URL
+      value: https://api.neferdata.com/whitelist/
+    - name: SUGGESTED_WHITELIST_URL
+      value: https://api.neferdata.com/whitelist/suggest
+    - name: DEFAULT_WHITELIST_URL
+      value: https://api.neferdata.com/whitelist/default
+    - name: SUBSCRIBE_URL
+      value: https://api.neferdata.com/subscribe/
+    - name: SUBSCRIBE_STOP_URL
+      value: https://api.neferdata.com/subscribe/stop
+    - name: LOGOUT_URL
+      value: https://api.neferdata.com/logout/
+    - name: AUTO_REPLY_USERS
+      value: kamil.litman@maymobility.com
+    - name: NO_AUTO_REPLY_EMAILS
+      value: no-reply,mailer-daemon,noreply,nobody@bounces,marketing-email-replies,postmaster
+    - name: REDIS_URL
+      value: 10.28.14.19:6379
+    - name: DISABLE_TEST_HANDLE
+      value: "true"
+    - name: UI_URL_AFTER_LOGIN
+      value: https://neferdata.com/messages
+    - name: UI_URL_AFTER_REGISTER
+      value: https://neferdata.com/setup
+    - name: UI_URL_AFTER_AUTH
+      value: https://neferdata.com/discover     
+    - name: UI_URL_MY_COMPANY
+      value: https://neferdata.com/company
+    - name: UI_URL_VENDOR_WELCOME
+      value: https://neferdata.com/setup/vendor/welcome
+    - name: UI_URL_VENDOR_SETUP
+      value: https://neferdata.com/setup/vendor
+    - name: ACTIX_TURN_OFF_POLLERS
+      value: "false"
+    - name: OPENAI_API_URL
+      value: https://api.openai.com
+    - name: MICROSOFT_RENEW_FREQ_SEC
+      value: "3600"
+    - name: CACHE_CLEANUP_FREQ_SEC
+      value: "86400"
+    - name: MESSAGE_INSIGHTS_FREQ_SEC
+      value: "600"
+    - name: STANDARD_NOT_FREQ_SEC
+      value: "86400"
+    - name: SENT_INSIGHTS_FREQ_SEC
+      value: "86400"
+    - name: ADMIN_ACCOUNT
+      value: admin@neferdata.com
+    - name: GMAIL_POLL_FREQUENCY_MILLIS
+      value: "60000"
+    - name: BACKUP_CHECK_FREQ_SEC
+      value: "600"
+    - name: GMAIL_WATCH_CHECK_FREQ_SEC
+      value: "3600"
+    - name: GMAIL_WATCH_EXPIRATION_SEC
+      value: "86000"
+    - name: COMPANION_CAMP_FREQ_SEC
+      value: "86400"
+    - name: NOTIFICATION_CAMP_FREQ_SEC
+      value: "3600"
+    - name: BACKUP_CHECK_DURATION_SEC
+      value: "600"
+    - name: COMPANION_CAMP_NAME
+      value: companion-mode
+    - name: MICROSOFT_OAUTH_REDIRECT_URL
+      value: https://api.neferdata.com/microsoft/login/callback
+    - name: INVITE_URL
+      value: https://api.neferdata.com/invitation/
+    - name: LANDING_PAGE_URL
+      value: https://neferdata.com
+    - name: DEFAULT_DATE_RANGE_WKS
+      value: "1"
+    - name: CLDSHLD_LABEL
+      value: Neferdata
+    - name: HISTORY_HOSPITAL_MOVE_SEC
+      value: "86400"
+    - name: DEFAULT_LOGIN_ACTION
+      value: authenticate
+    - name: METADATA_OBFUSCATION_FREQ_SEC
+      value: "3600"
+    - name: COMPANY_INSIGHTS_API
+      value: http://insights-api-service:8081/insights/company
+    - name: INTERACTION_INSIGHTS_API
+      value: http://insights-api-service:8081/insights/interaction
+    - name: INTERACTION_COUNT_API
+      value: http://insights-api-service:8081/insights/interaction/count
+    - name: GLOBAL_USER_API
+      value: http://insights-api-service:8081/user
+
+    - name: OAUTH_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: OAUTH_CLIENT_ID
+    - name: OAUTH_AUTH_URL
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: OAUTH_AUTH_URL
+    - name: OAUTH_TOKEN_URL
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: OAUTH_TOKEN_URL
+    - name: OAUTH_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: OAUTH_CLIENT_SECRET
+    - name: GCLOUD_PUB_SUB_SUB_ID
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: GCLOUD_PUB_SUB_SUB_ID
+    - name: GCLOUD_PUB_SUB_PKEY
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: GCLOUD_PUB_SUB_PKEY
+    - name: PUB_SUB_TOPIC_NAME
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: PUB_SUB_TOPIC_NAME
+    - name: PG_PWD
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: PG_PWD
+    - name: PG_HOST
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: PG_HOST
+    - name: PG_PORT
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: PG_PORT
+    - name: PG_INSTANCE
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: PG_INSTANCE
+    - name: PG_URL
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: PG_URL
+    - name: GCLOUD_PUB_SUB_ACCOUNT
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: GCLOUD_PUB_SUB_ACCOUNT
+    - name: SESSION_ENCRYPTION_KEY
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: SESSION_ENCRYPTION_KEY
+    - name: OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: OPENAI_API_KEY
+    - name: MICROSOFT_OAUTH_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: MICROSOFT_OAUTH_CLIENT_ID
+    - name: MICROSOFT_OAUTH_AUTH_URL
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: MICROSOFT_OAUTH_AUTH_URL
+    - name: MICROSOFT_OAUTH_TOKEN_URL
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: MICROSOFT_OAUTH_TOKEN_URL
+    - name: MICROSOFT_OAUTH_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: MICROSOFT_OAUTH_CLIENT_SECRET
+    - name: MICROSOFT_NOTIFICATION_URL
+      valueFrom:
+        secretKeyRef:
+          name: neferdata-secrets
+          key: MICROSOFT_NOTIFICATION_URL
+  resources: {}
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  service:
+    type: ClusterIP
+    port: 8080
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+ui:
+  replicaCount: 1
+  image:
+    repository: us-central1-docker.pkg.dev/cldshld/neferdata-ui/neferdata-ui
+    pullPolicy: Always
+    tag: ac075f96387f5d87844d2e6b9ed6f20f2597b638
+  resources: {}
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  service:
+    type: ClusterIP
+    port: 80
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prod
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: api.neferdata.com
+      paths:
+        - path: /
+          pathType: Prefix
+          service:
+            name: actix-api-service
+            port:
+              number: 8080
+    - host: neferdata.com
+      paths:
+        - path: /
+          pathType: Prefix
+          service:
+            name: ui-service
+            port:
+              number: 80
+    - host: www.neferdata.com
+      paths:
+        - path: /
+          pathType: Prefix
+          service:
+            name: ui-service
+            port:
+              number: 80
+  tls:
+    - secretName: neferdata-tls
+      hosts:
+        - neferdata.com
+        - '*.neferdata.com'
