@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: route53-cluster-issuer
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory  # Use Let's Encrypt production API
+    email: social@neferdata.com  # Replace with your email address
+    privateKeySecretRef:
+      name: route53-cluster-issuer-key  # Secret will be created to store the account's private key
+    solvers:
+    - selector: {}
+      dns01:
+        route53:
+          region: us-east-2  # Replace with your AWS region, if different

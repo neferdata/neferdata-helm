@@ -1,0 +1,6 @@
+# values.yaml
+
+provider: aws
+
+aws:
+  region: us-east-2  # replace with your region

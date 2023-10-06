@@ -4,6 +4,7 @@
 nameOverride: ""
 fullnameOverride: ""
 
+# used to determine if we should use cloud-sql proxy or not
 cloud:
   provider: "aws" # or "gcp", "azure", etc.
 
@@ -19,29 +20,29 @@ actixApi:
     - name: ACTIX_PORT
       value: "8080"
     - name: OAUTH_REDIRECT_URL
-      value: https://api.neferdata.com/login/callback
+      value: https://api.neferdataengineering.com/login/callback
     - name: UI_URL
-      value: https://neferdata.com
+      value: https://neferdataengineering.com
     - name: AUTHORIZE_URL
-      value: https://api.neferdata.com/login?action=Authorize
+      value: https://api.neferdataengineering.com/login?action=Authorize
     - name: MICROSOFT_AUTHORIZE_URL
-      value: https://api.neferdata.com/microsoft/login?action=Authorize
+      value: https://api.neferdataengineering.com/microsoft/login?action=Authorize
     - name: AUTHORIZE_VENDOR_URL
-      value: https://api.neferdata.com/login?action=Authorize&vendor=true
+      value: https://api.neferdataengineering.com/login?action=Authorize&vendor=true
     - name: MICROSOFT_AUTHORIZE_VENDOR_URL
-      value: https://api.neferdata.com/microsoft/login?action=Authorize&vendor=true
+      value: https://api.neferdataengineering.com/microsoft/login?action=Authorize&vendor=true
     - name: WHITELIST_URL
-      value: https://api.neferdata.com/whitelist/
+      value: https://api.neferdataengineering.com/whitelist/
     - name: SUGGESTED_WHITELIST_URL
-      value: https://api.neferdata.com/whitelist/suggest
+      value: https://api.neferdataengineering.com/whitelist/suggest
     - name: DEFAULT_WHITELIST_URL
-      value: https://api.neferdata.com/whitelist/default
+      value: https://api.neferdataengineering.com/whitelist/default
     - name: SUBSCRIBE_URL
-      value: https://api.neferdata.com/subscribe/
+      value: https://api.neferdataengineering.com/subscribe/
     - name: SUBSCRIBE_STOP_URL
-      value: https://api.neferdata.com/subscribe/stop
+      value: https://api.neferdataengineering.com/subscribe/stop
     - name: LOGOUT_URL
-      value: https://api.neferdata.com/logout/
+      value: https://api.neferdataengineering.com/logout/
     - name: AUTO_REPLY_USERS
       value: kamil.litman@maymobility.com
     - name: NO_AUTO_REPLY_EMAILS
@@ -51,17 +52,17 @@ actixApi:
     - name: DISABLE_TEST_HANDLE
       value: "true"
     - name: UI_URL_AFTER_LOGIN
-      value: https://neferdata.com/messages
+      value: https://neferdataengineering.com/messages
     - name: UI_URL_AFTER_REGISTER
-      value: https://neferdata.com/setup
+      value: https://neferdataengineering.com/setup
     - name: UI_URL_AFTER_AUTH
-      value: https://neferdata.com/discover     
+      value: https://neferdataengineering.com/discover     
     - name: UI_URL_MY_COMPANY
-      value: https://neferdata.com/company
+      value: https://neferdataengineering.com/company
     - name: UI_URL_VENDOR_WELCOME
-      value: https://neferdata.com/setup/vendor/welcome
+      value: https://neferdataengineering.com/setup/vendor/welcome
     - name: UI_URL_VENDOR_SETUP
-      value: https://neferdata.com/setup/vendor
+      value: https://neferdataengineering.com/setup/vendor
     - name: ACTIX_TURN_OFF_POLLERS
       value: "false"
     - name: OPENAI_API_URL
@@ -95,11 +96,11 @@ actixApi:
     - name: COMPANION_CAMP_NAME
       value: companion-mode
     - name: MICROSOFT_OAUTH_REDIRECT_URL
-      value: https://api.neferdata.com/microsoft/login/callback
+      value: https://api.neferdataengineering.com/microsoft/login/callback
     - name: INVITE_URL
-      value: https://api.neferdata.com/invitation/
+      value: https://api.neferdataengineering.com/invitation/
     - name: LANDING_PAGE_URL
-      value: https://neferdata.com
+      value: https://neferdataengineering.com
     - name: DEFAULT_DATE_RANGE_WKS
       value: "1"
     - name: CLDSHLD_LABEL
@@ -241,7 +242,82 @@ ui:
   image:
     repository: us-central1-docker.pkg.dev/cldshld/neferdata-ui/neferdata-ui
     pullPolicy: Always
-    tag: ac075f96387f5d87844d2e6b9ed6f20f2597b638
+    tag: 338ff8a90d906f50986eedfe432426b0d4667008
+  env:
+    - name: ACTIX_PORT
+      value: "443"
+    - name: ENABLE_OAUTH
+      value: "true"
+    - name: LOGIN_URL
+      value: "https://api.neferdataengineering.com/login"
+    - name: AUTHORIZE_URL
+      value: "https://api.neferdataengineering.com/login?action=Authorize"
+    - name: LOGIN_VENDOR_URL
+      value: "https://api.neferdataengineering.com/login?vendor=true"
+    - name: AUTHORIZE_VENDOR_URL
+      value: "https://api.neferdataengineering.com/login?action=Authorize&vendor=true"
+    - name: WHITELIST_URL
+      value: "https://api.neferdataengineering.com/whitelist/"
+    - name: SUGGESTED_WHITELIST_URL
+      value: "https://api.neferdataengineering.com/whitelist/suggest"
+    - name: DEFAULT_WHITELIST_URL
+      value: "https://api.neferdataengineering.com/whitelist/default"
+    - name: SUBSCRIBE_URL
+      value: "https://api.neferdataengineering.com/subscribe/"
+    - name: SUBSCRIBE_STOP_URL
+      value: "https://api.neferdataengineering.com/subscribe/stop"
+    - name: LOGOUT_URL
+      value: "https://api.neferdataengineering.com/logout/"
+    - name: SESSION_URL
+      value: "https://api.neferdataengineering.com/user/session/"
+    - name: USER_PROFILE_URL
+      value: "https://api.neferdataengineering.com/user/"
+    - name: MESSAGES_URL
+      value: "https://api.neferdataengineering.com/messages"
+    - name: COMPANIES_URL
+      value: "https://api.neferdataengineering.com/companies"
+    - name: MY_COMPANY_URL
+      value: "https://api.neferdataengineering.com/company"
+    - name: WAITLIST_URL
+      value: "https://api.neferdataengineering.com/waitlist/"
+    - name: CONTACT_URL
+      value: "https://api.neferdataengineering.com/contact/"
+    - name: CONTACT_CATEGORY_URL
+      value: "https://api.neferdataengineering.com/contact/category/"
+    - name: DEFAULT_DATE_RANGE_WKS
+      value: "1"
+    - name: MICROSOFT_LOGIN_URL
+      value: "https://api.neferdataengineering.com/microsoft/login"
+    - name: MICROSOFT_AUTHORIZE_URL
+      value: "https://api.neferdataengineering.com/microsoft/login?action=Authorize"
+    - name: MICROSOFT_LOGIN_VENDOR_URL
+      value: "https://api.neferdataengineering.com/microsoft/login?vendor=ture"
+    - name: MICROSOFT_AUTHORIZE_VENDOR_URL
+      value: "https://api.neferdataengineering.com/microsoft/login?action=Authorize&vendor=true"
+    - name: FEATURE_FLAG_MICROSOFT
+      value: "true"
+    - name: NOTIFICATION_URL
+      value: "https://api.neferdataengineering.com/notification/"
+    - name: BLACKLISTED_COMPANY_GRAPH_URL
+      value: "https://api.neferdataengineering.com/companies/graph"
+    - name: WHITELISTED_COMPANY_GRAPH_URL
+      value: "https://api.neferdataengineering.com/whitelist/graph"
+    - name: GET_COMPANY_ALTERNATIVES_URL
+      value: "https://api.neferdataengineering.com/companies/alternatives"
+    - name: SEARCH_COMPANY_URL
+      value: "https://api.neferdataengineering.com/discover/search"
+    - name: SEARCH_COMPANY_INSIGHT_URL
+      value: "https://api.neferdataengineering.com/discover/insight"
+    - name: ENABLE_CONTACT_US
+      value: "true"
+    - name: ENABLE_INSIGHTS
+      value: "false"
+    - name: CLDSHLD_LABEL
+      value: "Neferdata"
+    - name: ENABLE_PROFILE
+      value: "true"
+    - name: AUTO_REPLY_USERS
+      value: "kamil.litman@maymobility.com"
   resources: {}
   podAnnotations: {}
   podSecurityContext: {}
@@ -263,18 +339,17 @@ ingress:
   enabled: true
   className: nginx
   annotations:
-    cert-manager.io/issuer: letsencrypt-prod
-    # kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "route53-cluster-issuer" # Name of your ClusterIssuer
   hosts:
-    - host: api.neferdata.com
-      paths:
-        - path: /
-          pathType: Prefix
-          service:
-            name: actix-api-service
-            port:
-              number: 8080
-    - host: neferdata.com
+    # - host: api.neferdataengineering.com
+    #   paths:
+    #     - path: /
+    #       pathType: Prefix
+    #       service:
+    #         name: actix-api-service
+    #         port:
+    #           number: 8080
+    - host: neferdataengineering.com
       paths:
         - path: /
           pathType: Prefix
@@ -282,7 +357,7 @@ ingress:
             name: ui-service
             port:
               number: 80
-    - host: www.neferdata.com
+    - host: www.neferdataengineering.com
       paths:
         - path: /
           pathType: Prefix
@@ -293,5 +368,5 @@ ingress:
   tls:
     - secretName: neferdata-tls
       hosts:
-        - neferdata.com
-        - '*.neferdata.com'
+        - neferdataengineering.com
+        - '*.neferdataengineering.com'
